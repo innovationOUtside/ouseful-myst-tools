@@ -13,7 +13,7 @@ import os
 
 class MystTemplateExporter(TemplateExporter):
     export_from_notebook = "MyST (ouseful)"
-    output_mimetype = "text/markdown"
+    #output_mimetype = "text/markdown"
 
     def _file_extension_default(self):
         return ".md"

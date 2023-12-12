@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=61.2", "wheel", "jupyter-packaging"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ouseful-myst-tools"
+version = "0.0.1"
+description = "Tools for working with MyST markdown."
+authors = [
+    {name = "Tony Hirst", email = "tony.hirst@gmail.com"},
+]
+requires-python = ">=3.9.0"
+dependencies = ["jupytext", "nbconvert"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Framework :: Sphinx :: Extension",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Topic :: Documentation",
+    "Topic :: Utilities",
+]
+
+[project.license]
+text = "MIT License"
+
+[project.urls]
+repository = "https://github.com/innovationOUtside/sphinxcontrib-ou-xml-tags/"
+
+[tool.setuptools]
+license-files = ["LICENSE"]
+packages = ["ouseful_myst_tools"]
+
+[project.entry-points."nbconvert.exporters"]
+myst = "ouseful_myst_tools.nbconvert:MystTemplateExporter"

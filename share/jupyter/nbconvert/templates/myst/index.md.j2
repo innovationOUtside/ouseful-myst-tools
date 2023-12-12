@@ -1,0 +1,88 @@
+
+{% extends 'markdown/index.md.j2' %}
+
+{% block body_header %}
+---
+jupytext:
+{%- if 'formats' in nb.metadata.jupytext %}
+  format: {{ nb.metadata.jupytext.formats }}
+{%- endif %}
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.16.0
+kernelspec:
+  display_name: {{ nb.metadata.kernelspec.display_name }}
+  language: {{ nb.metadata.kernelspec.language }}
+  name: {{ nb.metadata.kernelspec.name }}
+---
+{% endblock body_header %}
+
+{% block traceback_line %}
++++ {"tags": ["code-cell-output"]}
+
+{{ line.rstrip() | strip_ansi }}
+
++++
+{% endblock traceback_line %}
+
+{% block stream %}
++++ {"tags": ["code-cell-output"]}
+
+{{ output.text.rstrip() }}
+
++++
+{% endblock stream %}
+
+{% block data_text scoped %}
++++ {"tags": ["code-cell-output"]}
+
+{{ output.data['text/plain'].rstrip() }}
+
++++
+{% endblock data_text %}
+
+{% block markdowncell scoped %}
+{% if 'tags' in cell.metadata  %}
++++ {"tags": {{ cell.metadata.tags}} }
+
+{{ cell.source }}
+
++++
+{%- else -%}
+{{ cell.source }}
+{% endif %}
+{% endblock markdowncell %}
+
+{% block input %}
+```{code-cell} {% if 'magics_language' in cell.metadata  -%}{{ cell.metadata.magics_language.rstrip()}}
+{% elif 'name' in nb.metadata.get('language_info', {}) -%}{{ nb.metadata.language_info.name.rstrip() }}
+{% endif -%}
+{%- if 'tags' in cell.metadata and cell.metadata.tags|length > 0 -%}
+:tags: {{ cell.metadata.tags}}
+{%- endif %}
+{{ cell.source }}
+```
+{% endblock input %}
+
+{% block data_png %}
+    {% if "filenames" in output.metadata %}
+```{image} {{ output.metadata.filenames['image/png'] | path2url }}
+```
+{% else %}
+```{image} data:image/png;base64,{{ output.data['image/png'] }}
+```
+{% endif %}
+{% endblock data_png %}
+
+{% block data_jpg %}
+    {% if "filenames" in output.metadata %}
+```{image} {{ output.metadata.filenames['image/jpeg'] | path2url }}
+```
+{% else %}
+```{image} data:image/jpeg;base64,{{ output.data['image/jpeg'] }}
+```
+{% endif %}
+{% endblock data_jpg %}
+

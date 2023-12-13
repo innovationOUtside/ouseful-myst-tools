@@ -20,6 +20,8 @@ We can extend the markdown template to generate MyST flavoured markdown:
 
 Jupytext provides a variety of roundtripping conversions between Jupyter notebook
 
+`jupytext --to myst demo.ipynb `
+
 ## BUILD and INSTALL
 
 `python3 -m build`

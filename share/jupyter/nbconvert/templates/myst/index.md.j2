@@ -19,43 +19,37 @@ kernelspec:
 ---
 {% endblock body_header %}
 
-{% block traceback_line %}
+{%- block traceback_line %}
 +++ {"tags": ["code-cell-output"]}
 
 {{ line.rstrip() | strip_ansi }}
-
-+++
 {% endblock traceback_line %}
 
-{% block stream %}
+{%- block stream %}
 +++ {"tags": ["code-cell-output"]}
 
 {{ output.text.rstrip() }}
-
-+++
 {% endblock stream %}
 
-{% block data_text scoped %}
+{%- block data_text scoped %}
 +++ {"tags": ["code-cell-output"]}
 
 {{ output.data['text/plain'].rstrip() }}
-
-+++
 {% endblock data_text %}
 
-{% block markdowncell scoped %}
+{%- block markdowncell scoped %}
 {% if 'tags' in cell.metadata  %}
 +++ {"tags": {{ cell.metadata.tags}} }
 
 {{ cell.source }}
-
-+++
 {%- else -%}
++++
+
 {{ cell.source }}
 {% endif %}
-{% endblock markdowncell %}
+{% endblock markdowncell -%}
 
-{% block input %}
+{%- block input -%}
 ```{code-cell} {% if 'magics_language' in cell.metadata  -%}{{ cell.metadata.magics_language.rstrip()}}
 {% elif 'name' in nb.metadata.get('language_info', {}) -%}{{ nb.metadata.language_info.name.rstrip() }}
 {% endif -%}
@@ -64,9 +58,10 @@ kernelspec:
 {%- endif %}
 {{ cell.source }}
 ```
-{% endblock input %}
+{% endblock input -%}
 
 {% block data_png %}
++++ {"tags": ["code-cell-display"]}
     {% if "filenames" in output.metadata %}
 ```{image} {{ output.metadata.filenames['image/png'] | path2url }}
 ```
@@ -77,6 +72,7 @@ kernelspec:
 {% endblock data_png %}
 
 {% block data_jpg %}
++++ {"tags": ["code-cell-display"]}
     {% if "filenames" in output.metadata %}
 ```{image} {{ output.metadata.filenames['image/jpeg'] | path2url }}
 ```

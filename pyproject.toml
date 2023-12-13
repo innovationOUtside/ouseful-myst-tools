@@ -10,7 +10,7 @@ authors = [
     {name = "Tony Hirst", email = "tony.hirst@gmail.com"},
 ]
 requires-python = ">=3.9.0"
-dependencies = ["jupytext", "nbconvert"]
+dependencies = ["jupytext", "nbconvert", "nbformat"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Framework :: Sphinx :: Extension",
@@ -36,4 +36,4 @@ license-files = ["LICENSE"]
 packages = ["ouseful_myst_tools"]
 
 [project.entry-points."nbconvert.exporters"]
-myst = "ouseful_myst_tools.nbconvert:MystTemplateExporter"
+myst = "ouseful_myst_tools.nbconvert:MySTExporter"
